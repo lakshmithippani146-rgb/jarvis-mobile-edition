@@ -3,180 +3,292 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JARVIS - AI Brain Interface</title>
+  <title>J.A.R.V.I.S - Personal AI Assistant</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Courier New', Courier, monospace;
     }
 
     body {
-      background-color: #050b14;
-      color: #00f3ff;
+      background-color: #000000;
+      color: #00f0ff;
       display: flex;
-      flex-direction: column;
-      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       overflow: hidden;
     }
 
-    header {
-      padding: 20px;
-      text-align: center;
-      border-bottom: 1px solid #00f3ff44;
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-    }
-
-    header h1 {
-      letter-spacing: 4px;
-      font-size: 1.8rem;
-      text-shadow: 0 0 10px #00f3ff;
-    }
-
-    #chat-container {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
+    .hud-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background: #020a0f;
+      border: 1px solid #00f0ff33;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      padding: 15px;
+      gap: 12px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
     }
 
-    .message {
-      max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 8px;
-      line-height: 1.5;
-      font-size: 0.95rem;
+    /* Header */
+    .title-box {
+      text-align: center;
+      margin-top: 5px;
     }
 
-    .user {
-      align-self: flex-end;
-      background: rgba(0, 243, 255, 0.1);
-      border: 1px solid #00f3ff88;
-      color: #e0ffff;
-      border-bottom-right-radius: 0;
+    .title-box h1 {
+      font-size: 1.8rem;
+      letter-spacing: 6px;
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
     }
 
-    .jarvis {
-      align-self: flex-start;
-      background: rgba(0, 100, 150, 0.2);
-      border: 1px solid #0088cc;
-      color: #7df9ff;
-      border-bottom-left-radius: 0;
-      box-shadow: 0 0 8px rgba(0, 243, 255, 0.15);
+    .title-box p {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: #00a8b3;
     }
 
-    #input-container {
+    /* Core / Arc Reactor Display */
+    .core-container {
       display: flex;
-      padding: 20px;
-      border-top: 1px solid #00f3ff44;
-      background-color: #03070d;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 0;
     }
 
-    input[type="text"] {
-      flex: 1;
-      background: #091424;
-      border: 1px solid #00f3ff66;
-      color: #00f3ff;
-      padding: 12px;
-      border-radius: 4px;
+    .arc-reactor {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px double #00f0ff;
+      box-shadow: 0 0 15px #00f0ff, inset 0 0 15px #00f0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: spin 10s linear infinite;
+    }
+
+    .arc-core {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #00f0ff;
+      box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .status-text {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: #00f0ff;
+      text-shadow: 0 0 5px #00f0ff;
+    }
+
+    /* API Key Configuration Block */
+    .api-config-box {
+      border: 1px dashed #00f0ffaa;
+      background: rgba(0, 240, 255, 0.05);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .api-config-box label {
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: #00a8b3;
+    }
+
+    .api-config-box input {
+      width: 100%;
+      background: #000;
+      border: 1px solid #00f0ffaa;
+      color: #00f0ff;
+      padding: 5px;
+      font-size: 0.75rem;
       outline: none;
-      font-size: 1rem;
     }
 
-    input[type="text"]:focus {
-      border-color: #00f3ff;
-      box-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+    /* System Diagnostics Box */
+    .diagnostics-box {
+      border: 1px solid #00f0ff55;
+      background: rgba(0, 240, 255, 0.03);
+      padding: 8px;
+      font-size: 0.75rem;
     }
 
-    button {
-      background: #00f3ff;
-      color: #050b14;
-      border: none;
-      padding: 12px 24px;
-      margin-left: 10px;
+    .diagnostics-title {
+      border-bottom: 1px solid #00f0ff44;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .diag-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+
+    .diag-status {
+      color: #00ff88;
+      font-weight: bold;
+      text-shadow: 0 0 5px #00ff88;
+    }
+
+    /* Output Console */
+    .console-box {
+      flex: 1;
+      border: 1px solid #00f0ff55;
+      background: #01060a;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .msg-user {
+      color: #00ff88;
+    }
+
+    .msg-jarvis {
+      color: #00f0ff;
+    }
+
+    /* Controls */
+    .input-box {
+      width: 100%;
+    }
+
+    .input-box input {
+      width: 100%;
+      background: #030d14;
+      border: 1px solid #00f0ff66;
+      color: #00f0ff;
+      padding: 8px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .input-box input:focus {
+      border-color: #00f0ff;
+      box-shadow: 0 0 8px #00f0ff;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 2fr;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .btn-grid button {
+      background: #011521;
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      padding: 8px 0;
+      font-size: 0.65rem;
       font-weight: bold;
       cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
+      letter-spacing: 1px;
     }
 
-    button:hover {
-      background: #80f9ff;
-      box-shadow: 0 0 12px #00f3ff;
+    .btn-grid button:hover {
+      background: #00f0ff;
+      color: #000;
+      box-shadow: 0 0 10px #00f0ff;
+    }
+
+    .btn-grid button.listening {
+      background: #ff0055;
+      color: #fff;
+      border-color: #ff0055;
+      box-shadow: 0 0 10px #ff0055;
     }
   </style>
+
+  <!-- Google Generative AI SDK Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <header>
-    <h1>J.A.R.V.I.S. INTERFACE</h1>
-  </header>
+  <div class="hud-container">
+    <div class="title-box">
+      <h1>J.A.R.V.I.S</h1>
+      <p>PERSONAL AI ASSISTANT</p>
+    </div>
 
-  <div id="chat-container">
-    <div class="message jarvis">
-      <strong>JARVIS:</strong> Systems operational, boss. How can I assist you today?
+    <div class="core-container">
+      <div class="arc-reactor" id="arc-reactor">
+        <div class="arc-core"></div>
+      </div>
+      <div class="status-text" id="status-text">SYSTEM READY</div>
+    </div>
+
+    <!-- API Key Insertion Line -->
+    <div class="api-config-box">
+      <label for="api-key-input">GEMINI API KEY:</label>
+      <input type="password" id="api-key-input" value="AQ.Ab8RN6J5yXnFCF2UFRlgyzGWtUHPEWoCg-HKUNHER_l19LwqrQ" />
+    </div>
+
+    <div class="diagnostics-box">
+      <div class="diagnostics-title">SYSTEM DIAGNOSTICS</div>
+      <div class="diag-row">
+        <span>AI ENGINE</span>
+        <span class="diag-status" id="diag-engine">• OPERATIONAL</span>
+      </div>
+      <div class="diag-row">
+        <span>CONNECTION</span>
+        <span class="diag-status" id="diag-connection">• ONLINE</span>
+      </div>
+      <div class="diag-row">
+        <span>VOICE INTERFACE</span>
+        <span class="diag-status" id="diag-voice">• READY</span>
+      </div>
+      <div class="diag-row">
+        <span>LONG-TERM MEMORY</span>
+        <span class="diag-status" id="diag-memory">• ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="console-box" id="console-output">
+      <div class="msg-jarvis">[JARVIS]: Systems fully initialized and online, boss.</div>
+    </div>
+
+    <div class="input-box">
+      <input type="text" id="user-input" placeholder="Enter a command for J.A.R.V.I.S..." autocomplete="off" />
+      <div class="btn-grid">
+        <button id="btn-execute">EXECUTE</button>
+        <button id="btn-mic">🎙️ LISTEN</button>
+        <button id="btn-speaker">🔊 MUTE</button>
+        <button id="btn-clear">CLEAR MEMORY</button>
+      </div>
     </div>
   </div>
 
-  <div id="input-container">
-    <input type="text" id="user-input" placeholder="Enter command or message..." autocomplete="off" />
-    <button id="send-btn">SEND</button>
-  </div>
-
-  <!-- Load Gemini SDK via ES Modules -->
-  <script type="module">
-    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-    // ⚠️ Insert your Gemini API Key below
-    const API_KEY = "AQ.Ab8RN6LZSxPqbZdJaPQ_33cpfwnVM0jyPh5oHYgMUZt7Nwy_Qw";
-
-    // Initialize Gemini AI with System Instructions to act like Jarvis
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      systemInstruction: "You are JARVIS, an advanced AI assistant. Respond concisely, intelligently, and politely with a subtle futuristic and helpful persona."
-    });
-
-    const chatContainer = document.getElementById("chat-container");
-    const userInput = document.getElementById("user-input");
-    const sendBtn = document.getElementById("send-btn");
-
-    async function handleSend() {
-      const text = userInput.value.trim();
-      if (!text) return;
-
-      appendMessage("User", text, "user");
-      userInput.value = "";
-
-      const loadingMsg = appendMessage("JARVIS", "Processing query...", "jarvis");
-
-      try {
-        const result = await model.generateContent(text);
-        const responseText = await result.response.text();
-        loadingMsg.innerHTML = `<strong>JARVIS:</strong> ${responseText}`;
-      } catch (error) {
-        console.error("API Error:", error);
-        loadingMsg.innerHTML = `<strong>JARVIS:</strong> Error connecting to core system. Details: ${error.message}`;
-      }
-    }
-
-    function appendMessage(sender, text, className) {
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add("message", className);
-      msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      chatContainer.appendChild(msgDiv);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      return msgDiv;
-    }
-
-    sendBtn.addEventListener("click", handleSend);
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") handleSend();
-    });
-  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
-
