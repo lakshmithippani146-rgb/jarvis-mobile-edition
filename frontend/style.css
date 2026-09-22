@@ -1,1 +1,220 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+  background-color: #000000;
+  color: #00f0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Outer HUD Container */
+.hud-container {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  background: #020a0f;
+  border: 1px solid #00f0ff33;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 12px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+/* Header Title Section */
+.title-box {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.title-box h1 {
+  font-size: 1.8rem;
+  letter-spacing: 6px;
+  color: #00f0ff;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+.title-box p {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: #00a8b3;
+}
+
+/* Core Arc Reactor Display */
+.core-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.arc-reactor {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px double #00f0ff;
+  box-shadow: 0 0 15px #00f0ff, inset 0 0 15px #00f0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: spin 10s linear infinite;
+}
+
+.arc-core {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.status-text {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  color: #00f0ff;
+  text-shadow: 0 0 5px #00f0ff;
+}
+
+/* API Key Configuration Panel */
+.api-config-box {
+  border: 1px dashed #00f0ffaa;
+  background: rgba(0, 240, 255, 0.05);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.api-config-box label {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: #00a8b3;
+}
+
+.api-config-box input {
+  width: 100%;
+  background: #000;
+  border: 1px solid #00f0ffaa;
+  color: #00f0ff;
+  padding: 5px;
+  font-size: 0.75rem;
+  outline: none;
+}
+
+/* System Diagnostics Grid */
+.diagnostics-box {
+  border: 1px solid #00f0ff55;
+  background: rgba(0, 240, 255, 0.03);
+  padding: 8px;
+  font-size: 0.75rem;
+}
+
+.diagnostics-title {
+  border-bottom: 1px solid #00f0ff44;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.diag-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.diag-status {
+  color: #00ff88;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff88;
+}
+
+/* Output Console Screen */
+.console-box {
+  flex: 1;
+  border: 1px solid #00f0ff55;
+  background: #01060a;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.msg-user {
+  color: #00ff88;
+}
+
+.msg-jarvis {
+  color: #00f0ff;
+}
+
+/* Interactive Input Controls & Buttons */
+.input-box {
+  width: 100%;
+}
+
+.input-box input {
+  width: 100%;
+  background: #030d14;
+  border: 1px solid #00f0ff66;
+  color: #00f0ff;
+  padding: 8px;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.input-box input:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.btn-grid button {
+  background: #011521;
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  padding: 8px 0;
+  font-size: 0.65rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.btn-grid button:hover {
+  background: #00f0ff;
+  color: #000000;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.btn-grid button.listening {
+  background: #ff0055;
+  color: #ffffff;
+  border-color: #ff0055;
+  box-shadow: 0 0 10px #ff0055;
+}
 
