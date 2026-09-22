@@ -15,7 +15,6 @@ body {
   overflow: hidden;
 }
 
-/* Outer HUD Container */
 .hud-container {
   width: 100%;
   max-width: 420px;
@@ -24,15 +23,14 @@ body {
   border: 1px solid #00f0ff33;
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  gap: 12px;
+  padding: 12px;
+  gap: 10px;
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
 }
 
-/* Header Title Section */
+/* Title Header */
 .title-box {
   text-align: center;
-  margin-top: 5px;
 }
 
 .title-box h1 {
@@ -48,18 +46,17 @@ body {
   color: #00a8b3;
 }
 
-/* Core Arc Reactor Display */
+/* Core Arc Reactor & Camera Display */
 .core-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 5px 0;
 }
 
 .arc-reactor {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   border: 3px double #00f0ff;
   box-shadow: 0 0 15px #00f0ff, inset 0 0 15px #00f0ff;
@@ -67,6 +64,7 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
   animation: spin 10s linear infinite;
 }
 
@@ -78,31 +76,39 @@ body {
   box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
 }
 
+#camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: none; /* Shown when camera is active */
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
 .status-text {
-  margin-top: 10px;
-  font-size: 0.8rem;
+  margin-top: 8px;
+  font-size: 0.75rem;
   letter-spacing: 3px;
   color: #00f0ff;
   text-shadow: 0 0 5px #00f0ff;
 }
 
-/* API Key Configuration Panel */
+/* API Key Box */
 .api-config-box {
   border: 1px dashed #00f0ffaa;
   background: rgba(0, 240, 255, 0.05);
-  padding: 8px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .api-config-box label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 1px;
   color: #00a8b3;
 }
@@ -112,23 +118,23 @@ body {
   background: #000;
   border: 1px solid #00f0ffaa;
   color: #00f0ff;
-  padding: 5px;
+  padding: 4px 6px;
   font-size: 0.75rem;
   outline: none;
 }
 
-/* System Diagnostics Grid */
+/* Diagnostics Panel */
 .diagnostics-box {
   border: 1px solid #00f0ff55;
   background: rgba(0, 240, 255, 0.03);
-  padding: 8px;
-  font-size: 0.75rem;
+  padding: 6px;
+  font-size: 0.7rem;
 }
 
 .diagnostics-title {
   border-bottom: 1px solid #00f0ff44;
-  padding-bottom: 4px;
-  margin-bottom: 6px;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -136,7 +142,7 @@ body {
 .diag-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .diag-status {
@@ -145,17 +151,17 @@ body {
   text-shadow: 0 0 5px #00ff88;
 }
 
-/* Output Console Screen */
+/* Output Console Box */
 .console-box {
   flex: 1;
   border: 1px solid #00f0ff55;
   background: #01060a;
-  padding: 10px;
+  padding: 8px;
   overflow-y: auto;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .msg-user {
@@ -166,7 +172,7 @@ body {
   color: #00f0ff;
 }
 
-/* Interactive Input Controls & Buttons */
+/* Input & Buttons Panel */
 .input-box {
   width: 100%;
 }
@@ -177,7 +183,7 @@ body {
   border: 1px solid #00f0ff66;
   color: #00f0ff;
   padding: 8px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   outline: none;
 }
 
@@ -188,8 +194,8 @@ body {
 
 .btn-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
-  gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
   margin-top: 6px;
 }
 
@@ -197,8 +203,8 @@ body {
   background: #011521;
   border: 1px solid #00f0ff;
   color: #00f0ff;
-  padding: 8px 0;
-  font-size: 0.65rem;
+  padding: 7px 0;
+  font-size: 0.6rem;
   font-weight: bold;
   cursor: pointer;
   letter-spacing: 1px;
@@ -211,10 +217,16 @@ body {
   box-shadow: 0 0 10px #00f0ff;
 }
 
+.btn-grid button.active {
+  background: #00ff88;
+  color: #000;
+  border-color: #00ff88;
+  box-shadow: 0 0 10px #00ff88;
+}
+
 .btn-grid button.listening {
   background: #ff0055;
   color: #ffffff;
   border-color: #ff0055;
   box-shadow: 0 0 10px #ff0055;
 }
-
